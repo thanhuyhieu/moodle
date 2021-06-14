@@ -48,6 +48,7 @@ $string['deletealias'] = 'Delete alias';
 
 $string['invalidaliasid'] = 'Invalid alias ID';
 $string['cannoteditalias'] = 'Cannot edit alias';
+$string['cannotaddalias'] = 'Cannot add alias';
 $string['textfields'] = 'Text Fields';
 
 

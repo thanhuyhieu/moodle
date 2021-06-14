@@ -51,12 +51,16 @@ $PAGE->set_heading($headingfullname);
 $PAGE->set_title($pluginname);
 $PAGE->navbar->add($managealias, $returnurl);
 
-if ($aliasid and !$alias = $DB->get_record('alias', array('id' => $aliasid))) {
-    print_error('invalidaliasid','local_alias');
+if ($aliasid){
+    if(!$alias = $DB->get_record('alias', array('id' => $aliasid))) {
+        print_error('invalidaliasid','local_alias');
+    }
+    if (!has_capability('local/alias:edit', $sitecontext)) {
+        print_error('cannoteditalias','local_alias');
+    }
 }
-
-if (!has_capability('local/alias:edit', $sitecontext)) {
-    print_error('cannoteditalias','local_alias');
+else if (!has_capability('local/alias:addinstance', $sitecontext)) {
+    print_error('cannotaddalias','local_alias');
 }
 
 // create the alias filter form
