@@ -24,20 +24,144 @@
  */
 
 require('../../config.php');
+require_once($CFG->dirroot.'/local/alias/alias_filter_form.php');
+require_once($CFG->dirroot.'/local/alias/lib.php');
+require_once($CFG->dirroot.'/local/alias/locallib.php');
 
-if ($CFG->forcelogin) {
-    require_login();
+
+$delete       = optional_param('delete', 0, PARAM_INT);
+$confirm      = optional_param('confirm', '', PARAM_ALPHANUM);   //md5 confirmation hash
+$search       = optional_param('search', '', PARAM_TEXT);
+$sort         = optional_param('sort', 'friendly', PARAM_ALPHANUM);
+$dir          = optional_param('dir', 'ASC', PARAM_ALPHA);
+$page         = optional_param('page', 0, PARAM_INT);
+$perpage      = optional_param('perpage', 10, PARAM_INT);
+
+$sitecontext = context_system::instance();
+
+require_login();
+if (!is_siteadmin()) {
+    return '';
 }
-
-$PAGE->set_pagelayout('incourse');
 
 $headingfullname    = get_string('headingfullname', 'local_alias');
 $managealias        = get_string('managealias', 'local_alias');
 $straliass          = get_string('modulenameplural', 'local_alias');
+$pluginname         = get_string('pluginname', 'local_alias');
 
+$PAGE->set_context($sitecontext);
 $PAGE->set_url('/local/alias/index.php');
-$PAGE->set_title($straliass);
+$PAGE->set_pagelayout('admin');
 $PAGE->set_heading($headingfullname);
+$PAGE->set_title($pluginname);
 $PAGE->navbar->add($managealias, '');
+
+
+$stredit            = get_string('edit');
+$strdelete          = get_string('delete');
+$strdeletecheck     = get_string('deletecheck');
+$baseurl = $returnurl = new moodle_url('/local/alias/index.php', array('sort' => $sort, 'dir' => $dir, 'perpage' => $perpage, 'page'=>$page, 'search' => $search));
+
+
+// Delete alias
+if ($delete and confirm_sesskey()) {
+    require_capability('local/alias:delete', $sitecontext);
+
+    $alias = $DB->get_record('alias', array('id'=>$delete), '*', MUST_EXIST);
+
+    if ($confirm != md5($delete)) {
+        echo $OUTPUT->header();
+        echo $OUTPUT->heading(get_string('deletealias', 'local_alias'));
+
+        $optionsyes = array('delete'=>$delete, 'confirm'=>md5($delete), 'sesskey'=>sesskey());
+        $deleteurl = new moodle_url($returnurl, $optionsyes);
+        $deletebutton = new single_button($deleteurl, get_string('delete'), 'post');
+
+        echo $OUTPUT->confirm(get_string('deletecheckfull', 'local_alias', "'$alias->friendly'"), $deletebutton, $returnurl);
+        echo $OUTPUT->footer();
+        die;
+    } else if (data_submitted()) {
+        if (delete_alias($alias)) {
+            \core\session\manager::gc();
+            redirect($returnurl);
+        } else {
+            \core\session\manager::gc();
+            echo $OUTPUT->header();
+            echo $OUTPUT->notification($returnurl, get_string('deletednot', '', $alias->friendly));
+        }
+    }
+}
+
+$aliases            = get_alias_listing($sort, $dir, $page*$perpage, $perpage, $search);
+$aliascount         = get_alias(false);
+$aliassearchcount   = get_alias(false, $search, '', '', '', '*');
+
+if (!$aliases) {
+    $table = NULL;
+} else {
+    //Header
+    $tableheader = array(
+        get_string('friendly', 'local_alias'),
+        get_string('destination', 'local_alias'),
+        get_string('action')
+    );
+
+    // Create Table Fields.
+    $table = new html_table();
+    $table->head = $tableheader;
+    $table->attributes['class'] = 'aliastable generaltable table-sm';
+    $table->id = "alias";
+
+    //Adding Data
+    foreach($aliases as $key => $alias){
+        $buttons = array();
+        $row = array ();
+        $alias_id = $alias->id;
+
+        // edit button
+        if (has_capability('local/alias:edit', $sitecontext)) {
+            $url = new moodle_url('/local/alias/edit.php', array('id'=>$alias_id));
+            $buttons[] = html_writer::link($url, $OUTPUT->pix_icon('t/edit', $stredit));
+        }
+
+        // delete button
+        if (has_capability('local/alias:delete', $sitecontext)) {
+            $url = new moodle_url($returnurl, array('delete'=>$alias_id, 'sesskey'=>sesskey()));
+            $buttons[] = html_writer::link($url, $OUTPUT->pix_icon('t/delete', $strdelete));
+        }
+        
+        $row[] = $alias->friendly;
+        $row[] = $alias->destination;
+        $row[] = implode(' ', $buttons);
+        $table->data[] = $row;
+    }
+}
+
+
+
 echo $OUTPUT->header();
-echo $OUTPUT->heading($straliass);
+echo $OUTPUT->heading($headingfullname);
+
+
+echo $OUTPUT->heading(get_string('numberofaliasesavailable','local_alias').' '.$aliassearchcount);
+
+// create the alias filter form
+$mform = new alias_add_filter_form($baseurl, array('search'=>$search));
+$mform->display();
+
+if (!empty($table)) {
+    echo html_writer::start_tag('div', array('class'=>'no-overflow'));
+    echo html_writer::table($table);
+    echo html_writer::end_tag('div');
+    echo $OUTPUT->paging_bar($aliascount, $page, $perpage, $baseurl);
+}
+else {
+    echo $OUTPUT->heading(get_string('noaliassfound','local_alias'));
+}
+//create button
+if (has_capability('local/alias:create', $sitecontext)) {
+    $url = new moodle_url('/local/alias/edit.php', array('id' => -1, 'section' => 'local_alias'));
+    echo $OUTPUT->single_button($url, get_string('createnewalias', 'local_alias'));
+}
+
+echo $OUTPUT->footer();

@@ -15,16 +15,12 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * Folder module version information
+ * Messaging providers of Alias module
  *
  * @package    local_alias
  * @copyright  2021 NashTech
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-defined('MOODLE_INTERNAL') || die();
+defined('MOODLE_INTERNAL') || die;
 
-$plugin->version   = 2021061400;       // The current module version (Date: YYYYMMDDXX).
-$plugin->requires  = 2021061000;    // Requires this Moodle version.
-$plugin->component = 'local_alias';        // Full name of the plugin (used for diagnostics)
-$plugin->cron      = 0;

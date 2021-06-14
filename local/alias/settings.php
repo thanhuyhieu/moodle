@@ -24,3 +24,10 @@
  */
 
 defined('MOODLE_INTERNAL') || die;
+
+// Add the settings page to the navigation block
+$settings = new admin_settingpage(
+    'local_alias',
+    get_string('pluginname', 'local_alias')
+    );
+$ADMIN->add('localplugins', $settings);

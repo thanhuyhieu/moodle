@@ -26,8 +26,29 @@
 $string['headingfullname'] = 'Site alias: Manage alias';
 $string['managealias'] = 'Manage Alias';
 $string['modulename'] = 'Alias';
-$string['modulenameplural'] = 'Alias';
+$string['modulenameplural'] = 'Aliases';
 $string['pluginname'] = 'Alias';
 
-$string['alias'] ='Alias';
-$string['destination'] ='Destination';
+$string['modulename_help'] = 'The Alias module enables a manager to provide a short web link.';
+
+$string['alias'] = 'Alias';
+
+$string['friendly'] = 'Friendly';
+$string['friendly_help'] = 'Enter a Friendly URL.\nExample: https://www.example.com/home';
+$string['filter:lable'] = 'Friendly:';
+$string['filter:go'] = 'Go';
+$string['destination'] = 'Destination';
+$string['destination_help'] = 'Enter a URL Destination.\nExample: https://www.example.com/post?id=1&view=mobile';
+$string['numberofaliasesavailable'] = 'Number of aliases available:';
+$string['noaliassfound'] = 'No alias Found';
+
+$string['createnewalias'] = 'Create new alias';
+$string['editalias'] = 'Edit alias';
+$string['deletealias'] = 'Delete alias';
+
+$string['invalidaliasid'] = 'Invalid alias ID';
+$string['cannoteditalias'] = 'Cannot edit alias';
+$string['textfields'] = 'Text Fields';
+
+
+$string['deletecheckfull']  = 'Are you sure you want to delete {$a}?';
