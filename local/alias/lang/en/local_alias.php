@@ -34,11 +34,13 @@ $string['modulename_help'] = 'The Alias module enables a manager to provide a sh
 $string['alias'] = 'Alias';
 
 $string['friendly'] = 'Friendly';
-$string['friendly_help'] = 'Enter a Friendly URL.\nExample: https://www.example.com/home';
+$string['friendly_help'] = 'Entered a Friendly URL.
+    Example: https://www.example.com/home';
 $string['filter:lable'] = 'Friendly:';
 $string['filter:go'] = 'Go';
 $string['destination'] = 'Destination';
-$string['destination_help'] = 'Enter a URL Destination.\nExample: https://www.example.com/post?id=1&view=mobile';
+$string['destination_help'] = 'Entered a Destination URL.
+    Example: https://www.example.com/post?id=1&view=mobile';
 $string['numberofaliasesavailable'] = 'Number of aliases available:';
 $string['noaliassfound'] = 'No alias Found';
 
@@ -47,6 +49,8 @@ $string['editalias'] = 'Edit alias';
 $string['deletealias'] = 'Delete alias';
 
 $string['invalidaliasid'] = 'Invalid alias ID';
+$string['invalidfriendlyurl'] = 'Invalid Friendly URL';
+$string['invaliddestinationurl'] = 'Invalid Destination URL';
 $string['cannoteditalias'] = 'Cannot edit alias';
 $string['cannotaddalias'] = 'Cannot add alias';
 $string['textfields'] = 'Text Fields';

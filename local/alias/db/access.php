@@ -33,7 +33,7 @@ $capabilities = array(
         )
     ),
 
-    'local/alias:create' => array(
+    'local/alias:addinstance' => array(
         'riskbitmask' => RISK_CONFIG,
 
         'captype' => 'write',

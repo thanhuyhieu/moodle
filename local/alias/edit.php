@@ -28,7 +28,7 @@ require_once($CFG->dirroot.'/local/alias/edit_form.php');
 require_once($CFG->dirroot.'/local/alias/lib.php');
 require_once($CFG->dirroot.'/local/alias/locallib.php');
 
-$aliasid       = optional_param('id', 0, PARAM_INT);
+$aliasid = optional_param('id', 0, PARAM_INT);
 $returnto = optional_param('returnto', null, PARAM_ALPHA);
 $sitecontext = context_system::instance();
 

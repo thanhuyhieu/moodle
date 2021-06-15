@@ -50,7 +50,7 @@ function url_appears_valid_url($url) {
  * @param string $url
  * @return string
  */
-function url_fix_submitted_url($url) {
+function alias_fix_submitted_url($url) {
     // note: empty urls are prevented in form validation
     $url = trim($url);
 

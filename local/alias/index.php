@@ -49,18 +49,20 @@ $managealias        = get_string('managealias', 'local_alias');
 $straliass          = get_string('modulenameplural', 'local_alias');
 $pluginname         = get_string('pluginname', 'local_alias');
 
+$baseurl = new moodle_url('/local/alias/index.php');
+
 $PAGE->set_context($sitecontext);
 $PAGE->set_url('/local/alias/index.php');
 $PAGE->set_pagelayout('admin');
 $PAGE->set_heading($headingfullname);
 $PAGE->set_title($pluginname);
-$PAGE->navbar->add($managealias, '');
+$PAGE->navbar->add($managealias, $baseurl);
 
 
 $stredit            = get_string('edit');
 $strdelete          = get_string('delete');
 $strdeletecheck     = get_string('deletecheck');
-$baseurl = $returnurl = new moodle_url('/local/alias/index.php', array('sort' => $sort, 'dir' => $dir, 'perpage' => $perpage, 'page'=>$page, 'search' => $search));
+$returnurl = new moodle_url('/local/alias/index.php', array('sort' => $sort, 'dir' => $dir, 'perpage' => $perpage, 'page'=>$page, 'search' => $search));
 
 
 // Delete alias
@@ -93,8 +95,15 @@ if ($delete and confirm_sesskey()) {
 }
 
 $aliases            = get_alias_listing($sort, $dir, $page*$perpage, $perpage, $search);
-$aliascount         = get_alias(false);
+// $aliascount         = get_alias(false);
 $aliassearchcount   = get_alias(false, $search, '', '', '', '*');
+
+// Avoid deleting happens on the last page is empty
+if($page > 0 and $aliassearchcount > 0 && count($aliases) == 0){
+    $page--;
+    $aliases = get_alias_listing($sort, $dir, $page*$perpage, $perpage, $search);
+}
+
 
 if (!$aliases) {
     $table = NULL;
@@ -141,26 +150,28 @@ if (!$aliases) {
 
 echo $OUTPUT->header();
 echo $OUTPUT->heading($headingfullname);
-
-
 echo $OUTPUT->heading(get_string('numberofaliasesavailable','local_alias').' '.$aliassearchcount);
 
 // create the alias filter form
-$mform = new alias_add_filter_form($baseurl, array('search'=>$search));
+if(empty($search))
+    $searchurl = $baseurl;
+else 
+    $searchurl = $returnurl;
+$mform = new alias_add_filter_form($searchurl, array('search'=>$search));
 $mform->display();
 
 if (!empty($table)) {
     echo html_writer::start_tag('div', array('class'=>'no-overflow'));
     echo html_writer::table($table);
     echo html_writer::end_tag('div');
-    echo $OUTPUT->paging_bar($aliascount, $page, $perpage, $baseurl);
+    echo $OUTPUT->paging_bar($aliassearchcount, $page, $perpage, $returnurl);
 }
 else {
     echo $OUTPUT->heading(get_string('noaliassfound','local_alias'));
 }
 //create button
-if (has_capability('local/alias:create', $sitecontext)) {
-    $url = new moodle_url('/local/alias/edit.php', array('id' => -1, 'section' => 'local_alias'));
+if (has_capability('local/alias:addinstance', $sitecontext)) {
+    $url = new moodle_url('/local/alias/edit.php', array('section' => 'local_alias'));
     echo $OUTPUT->single_button($url, get_string('createnewalias', 'local_alias'));
 }
 
