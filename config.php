@@ -21,7 +21,19 @@ $CFG->wwwroot   = 'http://localhost/moodle';
 $CFG->dataroot  = 'C:\\xampp\\moodledata';
 $CFG->admin     = 'admin';
 
+
+$CFG->phpunit_prefix = 'phpu_';
+$CFG->phpunit_dataroot = 'C:\\xampp\\phpu_moodledata';
+$CFG->phpunit_dbtype    = 'pgsql';      // 'pgsql', 'mariadb', 'mysqli', 'mssql', 'sqlsrv' or 'oci'
+$CFG->phpunit_dblibrary = 'native';     // 'native' only at the moment
+$CFG->phpunit_dbhost    = '127.0.0.1';  // eg 'localhost' or 'db.isp.com' or IP
+$CFG->phpunit_dbname    = 'moodle';     // database name, eg moodle
+$CFG->phpunit_dbuser    = 'postgres';   // your database username
+$CFG->phpunit_dbpass    = 'postgres';   // your database password
+
+
 $CFG->directorypermissions = 0777;
+
 
 require_once(__DIR__ . '/lib/setup.php');
 
