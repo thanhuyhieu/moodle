@@ -32,7 +32,7 @@ defined('MOODLE_INTERNAL') || die;
  * @param $url
  * @return bool true is seems valid, false if definitely not valid URL
  */
-function url_appears_valid_url($url) {
+function alias_appears_valid_url($url) {
     if (preg_match('/^(\/|https?:|ftp:)/i', $url)) {
         // note: this is not exact validation, we look for severely malformed URLs only
         return (bool) preg_match('/^[a-z]+:\/\/([^:@\s]+:[^@\s]+@)?[^ @]+(:[0-9]+)?(\/[^#]*)?(#.*)?$/i', $url);

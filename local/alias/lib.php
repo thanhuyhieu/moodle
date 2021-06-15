@@ -96,8 +96,8 @@ function alias_add_instance($data, $mform) {
 
     require_once($CFG->dirroot.'/local/alias/locallib.php');
 
-    $data->friendly = url_fix_submitted_url($data->friendly);
-    $data->destination = url_fix_submitted_url($data->destination);
+    $data->friendly = alias_fix_submitted_url($data->friendly);
+    $data->destination = alias_fix_submitted_url($data->destination);
 
     $data->timemodified = time();
 

@@ -85,14 +85,14 @@ class alias_edit_form extends moodleform {
 
         if (!empty($data['friendly'])) {
             $url = $data['friendly'];
-            if (!url_appears_valid_url($url)) {
+            if (!alias_appears_valid_url($url)) {
                 $errors['friendly'] = get_string('invalidfriendlyurl', 'local_alias');
             }
         }
 
         if (!empty($data['destination'])) {
             $url = $data['destination'];
-            if (!url_appears_valid_url($url)) {
+            if (!alias_appears_valid_url($url)) {
                 $errors['destination'] = get_string('invaliddestinationurl', 'local_alias');
             }
         }
