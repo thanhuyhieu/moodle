@@ -28,8 +28,24 @@ TODO:
  * new backup/restore and old restore transformation (MDL-20085)
 
 
-* Add menu item
+Add menu item:
 1. Click Home > Site administration > Appearance > Theme settings
 2. Scroll down to the Custom menu items field.
 3. Enter: Alias|/local/alias/index.php
 4. Scroll to the bottom of the page and click Save changes
+
+Sitemap:
+* User interface: http://localhost/moodle/alias
+* Create alias: http://localhost/moodle/alias/edit.php or click Create new alias button
+* Edit alias: http://localhost/moodle/alias/edit.php?id=xx (xx is number of alias id) or Click Edit alias
+* Delete alias: Click delete button
+* Search alias: Enter keyword and Click Go button
+* Pagination: 10 records for each page. Click number page to view.
+
+Run PHPUnit9:
+1. Add a new "phpu_moodledata" directory, according to config.php
+2. Go to moodle root directory
+3. Run this to install phpunit
+    * php admin/tool/phpunit/cli/init.php
+4. Run testcase
+    * vendor/bin/phpunit --testsuite local_alias_testsuite
