@@ -49,3 +49,14 @@ Run PHPUnit9:
     * php admin/tool/phpunit/cli/init.php
 4. Run testcase
     * vendor/bin/phpunit --testsuite local_alias_testsuite
+
+Run Behat:
+1. Add a new "behat_moodledata" directory, according to config.php
+2. Please make sure, Selemium and chromedriver were installed matching for chrome browser version
+    * Or follow instruction moodle https://docs.moodle.org/dev/Running_acceptance_test
+3. Go to moodle root directory
+4. Run this to install phpunit
+    * php admin/tool/behat/cli/init.php
+5. Run testcase
+    * vendor/bin/behat --config C:/xampp/behat_moodledata/behatrun/behat/behat.yml --tags=@local
+    * or vendor/bin/behat --config C:/xampp/behat_moodledata/behatrun/behat/behat.yml --tags=@local_alias
