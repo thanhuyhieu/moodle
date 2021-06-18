@@ -27,6 +27,7 @@ TODO:
  * implement portfolio support (MDL-20084)
  * new backup/restore and old restore transformation (MDL-20085)
 
+# I. Alias Menu
 
 Add menu item:
 1. Click Home > Site administration > Appearance > Theme settings
@@ -40,7 +41,11 @@ Or
 2. Scroll down to Local Plugin area
 3. Click "Manage Alias" button
 
+ * Note: 
+    * If the interface is white page at all, please run this command line in moodle directory
+    * php admin/cli/purge_caches.php
 
+# II. Sitemap
 Sitemap:
 * User interface: http://localhost/moodle/alias
 * Create alias: http://localhost/moodle/alias/edit.php or click Create new alias button
@@ -49,6 +54,7 @@ Sitemap:
 * Search alias: Enter keyword and Click Go button
 * Pagination: 10 records for each page. Click number page to view.
 
+# III. PHPUnit
 Run PHPUnit9:
 1. Add a new "phpu_moodledata" directory, according to config.php
 2. Go to moodle root directory
@@ -57,6 +63,7 @@ Run PHPUnit9:
 4. Run testcase
     * vendor/bin/phpunit --testsuite local_alias_testsuite
 
+# IV. Behat
 Run Behat:
 1. Add a new "behat_moodledata" directory, according to config.php
 2. Please make sure, Selemium and chromedriver were installed matching for chrome browser version

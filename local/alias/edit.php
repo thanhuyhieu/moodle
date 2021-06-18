@@ -49,6 +49,7 @@ $PAGE->set_context($sitecontext);
 $PAGE->set_pagelayout('admin');
 $PAGE->set_heading($headingfullname);
 $PAGE->set_title($pluginname);
+$PAGE->navbar->ignore_active();
 $PAGE->navbar->add($managealias, $returnurl);
 
 if ($aliasid){

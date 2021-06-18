@@ -56,6 +56,7 @@ $PAGE->set_url('/local/alias/index.php');
 $PAGE->set_pagelayout('admin');
 $PAGE->set_heading($headingfullname);
 $PAGE->set_title($pluginname);
+$PAGE->navbar->ignore_active();
 $PAGE->navbar->add($managealias, $baseurl);
 
 
