@@ -33,8 +33,8 @@ $CFG->phpunit_dbpass    = 'postgres';   // your database password
 
 
 $CFG->behat_prefix = 'behat_';
-$CFG->dataroot  = 'C:\\xampp\\behat_moodledata';
-$CFG->wwwroot   = 'http://127.0.0.1/moodle';
+$CFG->behat_dataroot  = 'C:\\xampp\\behat_moodledata';
+$CFG->behat_wwwroot   = 'http://127.0.0.1/moodle';
 
 
 $CFG->directorypermissions = 0777;
