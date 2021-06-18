@@ -25,9 +25,14 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-// Add the settings page to the navigation block
-$settings = new admin_settingpage(
-    'local_alias',
-    get_string('pluginname', 'local_alias')
-    );
-$ADMIN->add('localplugins', $settings);
+if ($hassiteconfig) {
+    $settingspage = new admin_category('local_alias_settings', new lang_string('pluginname', 'local_alias'));
+    $ADMIN->add('localplugins', $settingspage);
+
+    // $settingspage = new admin_settingpage('managelocalalias', new lang_string('managealias', 'local_alias'));
+    // $ADMIN->add('localplugins', $settingspage);
+    
+    $settingspage = new admin_externalpage('local_alias', new lang_string('managealias', 'local_alias'),
+        new moodle_url('/local/alias/index.php'));
+    $ADMIN->add('localplugins', $settingspage);
+}

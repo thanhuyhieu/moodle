@@ -34,6 +34,13 @@ Add menu item:
 3. Enter: Alias|/local/alias/index.php
 4. Scroll to the bottom of the page and click Save changes
 
+Or
+
+1. Go to Site Admin > Plugin
+2. Scroll down to Local Plugin area
+3. Click "Manage Alias" button
+
+
 Sitemap:
 * User interface: http://localhost/moodle/alias
 * Create alias: http://localhost/moodle/alias/edit.php or click Create new alias button
