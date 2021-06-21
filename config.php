@@ -35,7 +35,28 @@ $CFG->phpunit_dbpass    = 'postgres';   // your database password
 $CFG->behat_prefix = 'behat_';
 $CFG->behat_dataroot  = 'C:\\xampp\\behat_moodledata';
 $CFG->behat_wwwroot   = 'http://127.0.0.1/moodle';
-
+$CFG->behat_profiles = [
+  'default' => [
+    'browser' => 'chrome',
+    'extensions' => [
+        'Behat\MinkExtension' => [
+            'selenium2' => [
+                'browser' => 'chrome',
+            ]
+        ]
+    ]
+  ],
+  'chrome' => [
+      'browser' => 'chrome',
+      'extensions' => [
+          'Behat\MinkExtension' => [
+              'selenium2' => [
+                      'browser' => 'chrome',
+              ]
+          ]
+      ]
+  ]
+];
 
 $CFG->directorypermissions = 0777;
 
