@@ -52,6 +52,7 @@ $PAGE->set_title($pluginname);
 $PAGE->navbar->ignore_active();
 $PAGE->navbar->add($managealias, $returnurl);
 
+$alias = array();
 if ($aliasid){
     if(!$alias = $DB->get_record('alias', array('id' => $aliasid))) {
         print_error('invalidaliasid','local_alias');
