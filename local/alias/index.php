@@ -40,9 +40,10 @@ $perpage      = optional_param('perpage', 10, PARAM_INT);
 $sitecontext = context_system::instance();
 
 require_login();
-if (!is_siteadmin()) {
-    return '';
-}
+// Uncheck this because manager can access
+// if (!is_siteadmin()) {
+//     return '';
+// }
 
 $headingfullname    = get_string('headingfullname', 'local_alias');
 $managealias        = get_string('managealias', 'local_alias');

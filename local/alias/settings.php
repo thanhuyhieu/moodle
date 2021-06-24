@@ -25,14 +25,21 @@
 
 defined('MOODLE_INTERNAL') || die;
 
-if ($hassiteconfig) {
+$systemcontext = \context_system::instance();
+
+if ($hassiteconfig) { // Admin
     $settingspage = new admin_category('local_alias_settings', new lang_string('pluginname', 'local_alias'));
     $ADMIN->add('localplugins', $settingspage);
 
-    // $settingspage = new admin_settingpage('managelocalalias', new lang_string('managealias', 'local_alias'));
-    // $ADMIN->add('localplugins', $settingspage);
-    
     $settingspage = new admin_externalpage('local_alias', new lang_string('managealias', 'local_alias'),
         new moodle_url('/local/alias/index.php'));
     $ADMIN->add('localplugins', $settingspage);
+}
+else if(has_capability('local/alias:config', $systemcontext)) { //Manager
+    $settingspage = new admin_category('local_alias_settings', new lang_string('pluginname', 'local_alias'));
+    $ADMIN->add('modules', $settingspage);
+
+    $settingspage = new admin_externalpage('local_alias', new lang_string('managealias', 'local_alias'),
+        new moodle_url('/local/alias/index.php'), 'local/alias:config');
+    $ADMIN->add('local_alias_settings', $settingspage);
 }
